@@ -21,7 +21,8 @@ static Display *gfx_display;
 static Window  gfx_window;
 static GC      gfx_gc;
 static Colormap gfx_colormap;
-
+static int _width = 0;
+static int _height = 0;
 /* These values are saved by gfx_wait then retrieved later by gfx_xpos and gfx_ypos. */
 
 static int saved_xpos = 0;
@@ -31,6 +32,8 @@ static int saved_ypos = 0;
 
 void gfx_open( int width, int height, const char *title )
 {
+	_width = width;
+	_height = height;
 	gfx_display = XOpenDisplay(0);
 	if(!gfx_display) {
 		fprintf(stderr,"gfx_open: unable to open the graphics window.\n");
@@ -73,14 +76,14 @@ void gfx_open( int width, int height, const char *title )
 
 void gfx_point( int x, int y )
 {
-	XDrawPoint(gfx_display,gfx_window,gfx_gc,x,y);
+	XDrawPoint(gfx_display,gfx_window,gfx_gc,x,y + _height);
 }
 
 
 void gfx_circle( int x, int y )
 {
 	int size = 6;
-	XDrawArc(gfx_display, gfx_window, gfx_gc, x-(size/2), y-(size/2), size, size, 0, 360*64);
+	XDrawArc(gfx_display, gfx_window, gfx_gc, x-(size/2), -y-(size/2) + _height, size, size, 0, 360*64);
 	//size = 4;
 //	XDrawArc(gfx_display, gfx_window, gfx_gc, x-(size/2), y-(size/2), size, size, 0, 360*64);
 	//size = 2;
@@ -99,7 +102,7 @@ void gfx_circle( int x, int y )
 
 void gfx_line( int x1, int y1, int x2, int y2 )
 {
-	XDrawLine(gfx_display,gfx_window,gfx_gc,x1,y1,x2,y2);
+	XDrawLine(gfx_display,gfx_window,gfx_gc, x1 , -y1 +_height,x2, -y2+_height);
 }
 
 /* Change the current drawing color. */

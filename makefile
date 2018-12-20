@@ -1,14 +1,12 @@
 .PHONY= doc clean
 
-.PHONY= doc clean
-
 CC=g++
 OPTIONS= -g -w
 LINKER_FLAGS = -lX11 -lm
 DEBUG= #-D DEBUG
 LIBDIR=src
 INCLUDEDIR=include
-_OBJ= gfx.o 
+_OBJ= gfx.o Perceptron.o
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 
 all:    main.cpp $(OBJ)
