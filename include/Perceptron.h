@@ -10,6 +10,20 @@ using namespace std;
 
 
 
+float operator*(const vector<float>& v1, const vector<float>& v2)
+{
+    float sum = 0;
+    if(v1.size() != v2.size()){
+        sum;
+    }
+
+    for(int i= 0; i < v1.size(); i++){
+        sum += v1[i] * v2[i];
+    }
+
+    return sum;
+}
+
 class point{
 	public:
 	point(int x, int y, int label){
@@ -60,6 +74,8 @@ class point{
 
 class Perceptron{
     public:
+
+
         vector<float> W;
         vector<float> bestW;
             float bestError = 9999;
@@ -123,11 +139,15 @@ class Perceptron{
                     vector<float> x = inputs[i];
                     float total;
 
-                    float r1 = W[1] * x[1];
-                    float r2 = W[2] * x[2];
-                    float r0 = W[0] * x[0];
+                 //   vector<float> product = W * x;
+                
 
-                    total = r1 + r2 + r0;
+
+                    /*float r1 = W[1] * x[1];
+                    float r2 = W[2] * x[2];
+                    float r0 = W[0] * x[0];*/
+
+                    total = W * x ; //product[0]+ product[1] + product[2];// r1 + r2 + r0;
 
                     int classficiation = activation(total);
 
