@@ -19,6 +19,8 @@ void gfx_point( int x, int y );
 
 void gfx_circle( int x, int y );
 
+void gfx_cross( int x, int y );
+
 /* Change the current drawing color. */
 void gfx_color( int red, int green, int blue );
 

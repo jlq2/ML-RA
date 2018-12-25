@@ -80,6 +80,19 @@ void gfx_point( int x, int y )
 }
 
 
+void gfx_cross( int x, int y )
+{
+	int size = 4;
+	XDrawLine(gfx_display,gfx_window,gfx_gc, x -size , -y +_height + size ,x +size, -y+_height - size);
+	XDrawLine(gfx_display,gfx_window,gfx_gc, x +size , -y +_height + size ,x -size, -y+_height - size);
+
+
+
+}
+
+
+
+
 void gfx_circle( int x, int y )
 {
 	int size = 6;

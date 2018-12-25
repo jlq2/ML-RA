@@ -79,19 +79,35 @@ class point{
 		_label = label;
 	}
 
+    vector<float> toVector(){
+        vector<float> vec(3);
+        vec[0] = 1;
+        vec[1] = _x;
+        vec[2] = _y;
+
+        return vec;
+    }
 
 	int check(int tag){
         int ret = 0;
 		if(_label == tag){
 			//verde
-				gfx_color(0,200,100);
+			gfx_color(0,200,100);
             ret = 1;
 		}else{
 			//rojo
 			gfx_color(200,0,0);
-
 		}
-		gfx_circle(_x,_y);
+
+
+
+        if(_label == 1){
+        gfx_cross(_x,_y);
+
+        }else{
+            gfx_circle(_x,_y);
+
+        }
 
         return ret;
 	}
@@ -100,14 +116,15 @@ class point{
 		if(_label == 1){
 			//rojo
 				gfx_color(200,0,0);
+        gfx_cross(_x,_y);
 
 		}else{
 			//verde
 				gfx_color(0,200,100);
+		gfx_circle(_x,_y);
 
 		}
 
-		gfx_circle(_x,_y);
 	}
 	
 
@@ -136,44 +153,31 @@ class Perceptron{
 
         Perceptron(vector<vector<float>> inputs){
             W = vector<float>(inputs[0].size()  );
-                                      srand (time(0));
+            srand (time(0));
 
-            W[0] =  rand() % 400 - 400;
-            W[1] = 0;
-            W[2] = 0;
+            W = W * 0.0f;
+             W[0] =  1;
+
 
         }
 
 
-        int classify(point p){
+        int classify( vector<float> x){
             if(bestW.size() != 0){
-            float total;
-
-            float r1 = bestW[1] * p._x;
-            float r2 = bestW[2] * p._y;
-
-            total = r1 + r2 + bestW[0] ;
-            return activation(total);
-
+                return activation(bestW* x);
             }
-
             return -2; 
 
         }
 
 
         void info(){
-            
-
             cout << W << endl;
-
         }
 
         //devolver la tasa de error tras entrenar
         float train(vector<vector<float>> inputs, vector<int> tags){
             vector<int> bad;
-            vector<int> badTags;
-          //  vector<int> last_classification;
             std::unordered_map<int,int> last_classification;
 
 
@@ -192,7 +196,7 @@ class Perceptron{
 
                 } 
                 
-                cout << "mal clasificados: " << bad.size() << endl;
+                //cout << "mal clasificados: " << bad.size() << endl;
 
                 if (bad.size() == 0) break;
 
@@ -206,20 +210,8 @@ class Perceptron{
                 }
 
 
-                int randomIndex = rand() % bad.size();
-                randomIndex = bad[randomIndex];
-                    //cout <<  tags[randomIndex] << endl;
-
-                    W += inputs[randomIndex] * (tags[randomIndex]-last_classification[randomIndex]);
-
-
-                    //W[1] += inputs_mult_tag[1];
-                   // W[2] += inputs_mult_tag[2];
-                   // W[0] += inputs_mult_tag[0];
-
-                    //W[1] +=  inputs[randomIndex][1] * (tags[randomIndex]-last_classification[randomIndex]) ;
-                    //W[2] +=  inputs[randomIndex][2] * (tags[randomIndex]-last_classification[randomIndex]) ;
-                    //W[0] +=  inputs[randomIndex][0] * (tags[randomIndex]-last_classification[randomIndex]) ;
+                int randomIndex = bad[rand() % bad.size()];
+                W += inputs[randomIndex] * (tags[randomIndex]-last_classification[randomIndex]);
 
 
                 bad.clear();
