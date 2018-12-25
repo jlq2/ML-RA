@@ -10,6 +10,22 @@ using namespace std;
 
 
 
+
+template <typename T> 
+ostream& operator<<(ostream& os, const vector<T>& v) 
+{ 
+    os << "["; 
+    for (int i = 0; i < v.size(); ++i) { 
+        os << v[i]; 
+        if (i != v.size() - 1) 
+            os << ", "; 
+    } 
+    os << "]\n"; 
+    return os; 
+} 
+  
+
+
 float operator*(const vector<float>& v1, const vector<float>& v2)
 {
     float sum = 0;
@@ -23,6 +39,37 @@ float operator*(const vector<float>& v1, const vector<float>& v2)
 
     return sum;
 }
+
+
+
+vector<float> operator*(const vector<float>& v1, const float constNumber)
+{
+    vector<float> ret(v1.size());
+
+    for(int i= 0; i < v1.size(); i++){
+       ret[i] = v1[i]* constNumber;
+    }
+
+    return ret;
+}
+
+vector<float> operator+=( vector<float>& v1, const vector<float>& v2)
+{
+
+    if(v1.size() != v2.size()){
+        return vector<float>(0);
+    }
+
+    for(int i= 0; i < v1.size(); i++){
+       v1[i] += v2[i];
+    }
+
+    return v1;
+}
+
+
+
+
 
 class point{
 	public:
@@ -117,11 +164,9 @@ class Perceptron{
 
         void info(){
             
-            for(float f : W)
-            {
-                cout << f << " " ;
-            } 
-            cout << endl;
+
+            cout << W << endl;
+
         }
 
         //devolver la tasa de error tras entrenar
@@ -137,24 +182,12 @@ class Perceptron{
 
                 for(int i= 0; i < inputs.size(); i++ ){
                     vector<float> x = inputs[i];
-                    float total;
 
-                 //   vector<float> product = W * x;
-                
-
-
-                    /*float r1 = W[1] * x[1];
-                    float r2 = W[2] * x[2];
-                    float r0 = W[0] * x[0];*/
-
-                    total = W * x ; //product[0]+ product[1] + product[2];// r1 + r2 + r0;
-
-                    int classficiation = activation(total);
+                    int classficiation = activation(W * x);
 
                     if( classficiation != tags[i]){
                         bad.push_back(i);
                         last_classification[i] = classficiation;
-                       // last_classification.push_back(classficiation);
                     }
 
                 } 
@@ -176,9 +209,17 @@ class Perceptron{
                 int randomIndex = rand() % bad.size();
                 randomIndex = bad[randomIndex];
                     //cout <<  tags[randomIndex] << endl;
-                    W[1] +=  inputs[randomIndex][1] * (tags[randomIndex]-last_classification[randomIndex]) ;
-                    W[2] +=  inputs[randomIndex][2] * (tags[randomIndex]-last_classification[randomIndex]) ;
-                    W[0] +=  inputs[randomIndex][0] * (tags[randomIndex]-last_classification[randomIndex]) ;
+
+                    W += inputs[randomIndex] * (tags[randomIndex]-last_classification[randomIndex]);
+
+
+                    //W[1] += inputs_mult_tag[1];
+                   // W[2] += inputs_mult_tag[2];
+                   // W[0] += inputs_mult_tag[0];
+
+                    //W[1] +=  inputs[randomIndex][1] * (tags[randomIndex]-last_classification[randomIndex]) ;
+                    //W[2] +=  inputs[randomIndex][2] * (tags[randomIndex]-last_classification[randomIndex]) ;
+                    //W[0] +=  inputs[randomIndex][0] * (tags[randomIndex]-last_classification[randomIndex]) ;
 
 
                 bad.clear();
