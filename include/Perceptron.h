@@ -156,7 +156,7 @@ class Perceptron{
             srand (time(0));
 
             W = W * 0.0f;
-             W[0] =  1;
+            W[0] =  1;
 
 
         }
@@ -181,7 +181,7 @@ class Perceptron{
             std::unordered_map<int,int> last_classification;
 
 
-            for(int j= 0; j < 10000; j++){
+            for(int j= 0; j < 1000; j++){
 
 
                 for(int i= 0; i < inputs.size(); i++ ){
@@ -196,7 +196,7 @@ class Perceptron{
 
                 } 
                 
-                //cout << "mal clasificados: " << bad.size() << endl;
+                cout << "mal clasificados: " << bad.size() << endl;
 
                 if (bad.size() == 0) break;
 
@@ -216,6 +216,7 @@ class Perceptron{
 
                 bad.clear();
                 last_classification.clear();
+
 
             }
 
