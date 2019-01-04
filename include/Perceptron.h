@@ -181,7 +181,7 @@ class Perceptron{
             std::unordered_map<int,int> last_classification;
 
 
-            for(int j= 0; j < 1000; j++){
+            for(int j= 0; j < 10000; j++){
 
 
                 for(int i= 0; i < inputs.size(); i++ ){

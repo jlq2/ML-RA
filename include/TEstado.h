@@ -5,16 +5,14 @@
 class TEstado
 {
     public:
-    std::vector<double> _x;
-    double _kLeft;
-    double _kRight;
-    double _kFire;
-
+        std::vector<float> _x;
+    float _teclaArriba;
+    float _teclaAbajo;
     public:
         TEstado();
         ~TEstado();
 
-        void addVector(double);
+        void addVector(float);
         
 };
 

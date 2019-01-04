@@ -15,7 +15,7 @@ public:
     TEntrenar();
     ~TEntrenar();
 
-    bool LeerData();
+    bool LeerData(string filename);
     void print();
 
 };
