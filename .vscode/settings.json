@@ -32,6 +32,22 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "__config": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "deque": "cpp",
+        "iomanip": "cpp",
+        "memory": "cpp",
+        "valarray": "cpp",
+        "list": "c",
+        "datareader.h": "c",
+        "cstdarg": "c",
+        "cstddef": "c",
+        "atomic": "c",
+        "chrono": "c",
+        "complex": "c",
+        "numeric": "c",
+        "ratio": "c",
+        "algorithm": "c"
     }
 }

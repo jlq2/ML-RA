@@ -27,12 +27,10 @@ int main()
 	dataReader data("Sonar.csv");
 
 	cout  << data._X << endl;
-	cout  << data._Y << endl;
 
 	Perceptron perceptron(data._X);
 	int contador = 20;
 
-	
 
 
 	while(contador--){
@@ -41,13 +39,13 @@ int main()
 		float tasaError = perceptron.train(data._X, data._Y[SIDE])		;
 											// IZQUIERDA
 
-
 		cout << "Tasa de Error: " << tasaError  << endl;
+
 		int TotalOkey = 0;
 		for(int i= 0; i < data._X.size(); i++){
 		//	cout << "claisifcando " << endl;
 													// IZQUIERDA
-			if(perceptron.classify( data._X[i]) == data._Y[SIDE][i]){
+			if(perceptron.classify( data._X[i]) == data._Y[i][SIDE]){
 				TotalOkey++;
 
 			}

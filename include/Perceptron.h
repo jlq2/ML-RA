@@ -1,9 +1,12 @@
+#pragma once
+
 #include <vector>
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <utility>      // std::pair, std::make_pair
 #include <unordered_map>
+#include "../include/Math.h"
 
 
 using namespace std;
@@ -57,11 +60,12 @@ vector<float> operator+=( vector<float>& v1, const vector<float>& v2)
 {
 
     if(v1.size() != v2.size()){
+        throw 20;
         return vector<float>(0);
     }
 
     for(int i= 0; i < v1.size(); i++){
-       v1[i] += v2[i];
+       v1[i] += v2[i] ;
     }
 
     return v1;
@@ -146,16 +150,16 @@ class Perceptron{
 
         
         int activation(float sum){
-            return sum  < 0 ? 0 : 1;
+            return sum  >= 0 ? 1 : 0;
 
         }
 
 
-        Perceptron(vector<vector<float>> inputs){
+        Perceptron(Matrix inputs){
             W = vector<float>(inputs[0].size()  );
             srand (time(0));
 
-            W = W * 0.0f;
+            W = W * 0.0f ;
             W[0] =  1;
 
 
@@ -163,10 +167,8 @@ class Perceptron{
 
 
         int classify( vector<float> x){
-            if(bestW.size() != 0){
                 return activation(bestW* x);
-            }
-            return -2; 
+            
 
         }
 
@@ -176,12 +178,17 @@ class Perceptron{
         }
 
         //devolver la tasa de error tras entrenar
-        float train(vector<vector<float>> inputs, vector<int> tags){
+        float train(Matrix inputs, vector<int> tags){
+
+
+    
+
+
             vector<int> bad;
             std::unordered_map<int,int> last_classification;
 
 
-            for(int j= 0; j < 10000; j++){
+            for(int j= 0; j < 100000; j++){
 
 
                 for(int i= 0; i < inputs.size(); i++ ){
@@ -198,7 +205,12 @@ class Perceptron{
                 
                 cout << "mal clasificados: " << bad.size() << endl;
 
-                if (bad.size() == 0) break;
+                if (bad.size() == 0){
+                    bestError = 0;
+                    bestW = W;
+
+                    break;
+                } 
 
                 float error = (float)bad.size() / (float)inputs.size();
                 
@@ -211,7 +223,8 @@ class Perceptron{
 
 
                 int randomIndex = bad[rand() % bad.size()];
-                W += inputs[randomIndex] * (tags[randomIndex]-last_classification[randomIndex]);
+
+                W +=  inputs[randomIndex] * (tags[randomIndex]- activation(W * inputs[randomIndex] ) );
 
 
                 bad.clear();
