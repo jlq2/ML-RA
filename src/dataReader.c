@@ -76,7 +76,8 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
     _equi = equi;
 
     Matrix X_Dirty;
-    vector<vector<int>> Y_Dirty;
+    vector<vector<int>> Y_Dirty  = vector<vector<int>>(2);
+
 
     std::ifstream xFile;
     xFile.open(fileX.c_str());
@@ -125,19 +126,30 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
         {
             std::stringstream ss(line);
 
-           
+           int it = 0;
+
+           //FIX ME CONST CHANGE TO VAR 2
+
+
             while (getline(ss,token, ','))
             {
-                v.push_back(std::stof(token));
+                
+                Y_Dirty[it].push_back(std::stof(token));
+                it++;
+               // v.push_back();
             }
 
-             Y_Dirty.push_back(v); 
-             v.clear();
+            // Y_Dirty.push_back(v); 
+            // v.clear();
         }
             
     }else{
         std::cout << "No encuentra " << fileY << std::endl;
     }
+
+
+
+
 
 
 
@@ -148,13 +160,13 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
         // cantida de datos, izq 
         int IZQ = 0;
 
-
+            _Y = vector<vector<int>>( 2 ) ;
         int cantidadSide = 0;
-        for(int i = 0; i<Y_Dirty.size(); i++){
-            if(Y_Dirty[i][IZQ] == 1){
+        for(int i = 0; i<Y_Dirty[IZQ].size(); i++){
+            if(Y_Dirty[IZQ][i] == 1){
                 cantidadSide++;
-                _Y.push_back(Y_Dirty[i]);
                 _X.push_back( X_Dirty[i] ); 
+                _Y[IZQ].push_back( Y_Dirty[IZQ][i] );
 
             }
         }
@@ -167,11 +179,14 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
         //Metemos la misma canditda dde los otros RANDOM
         for(int i = 0; i < cantidadSide; i++ ){
             random = rand()%X_Dirty.size();
-            _Y.push_back(Y_Dirty[random]);
+            _Y[0].push_back(Y_Dirty[0][random]);
             _X.push_back( X_Dirty[random] ); 
         }
 
-    }
+    }else{
+         _Y = Y_Dirty;
+        _X = X_Dirty;
+    }   
 
 }
 

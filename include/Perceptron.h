@@ -188,7 +188,7 @@ class Perceptron{
             std::unordered_map<int,int> last_classification;
 
 
-            for(int j= 0; j < 100000; j++){
+            for(int j= 0; j < 100; j++){
 
 
                 for(int i= 0; i < inputs.size(); i++ ){
@@ -196,6 +196,9 @@ class Perceptron{
 
                     int classficiation = activation(W * x);
 
+                //cout << "classficiation" << classficiation << endl;
+                //cout << "tags" << tags[i] << endl;
+ 
                     if( classficiation != tags[i]){
                         bad.push_back(i);
                         last_classification[i] = classficiation;

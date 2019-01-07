@@ -22,17 +22,21 @@ using namespace std;
 
 int main()
 {
-	//dataReader data("inputs.csv", "tags.csv", true);
+	dataReader data("inputs.csv", "tags.csv", true);
 
-	dataReader data("Sonar.csv");
+	//dataReader data("Sonar.csv");
 
 	cout  << data._X << endl;
 	cout  << data._Y << endl;
 
 	Perceptron perceptron(data._X);
-	int contador = 20;
+	int contador = 200;
 
 	
+//	cout  <<  data._Y[SIDE] << endl;
+
+    cout << "--------------------------------------------------------" << endl;
+
 
 
 	while(contador--){
