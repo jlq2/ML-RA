@@ -14,7 +14,7 @@ class dataReader{
         bool _equi;
     
     public:
-        dataReader(string fileX, string fileY, bool equi); 
+        dataReader(string fileX, string fileY, bool equi,int SIDE); 
         dataReader(string dataSet); 
 
 };

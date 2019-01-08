@@ -180,15 +180,11 @@ class Perceptron{
         //devolver la tasa de error tras entrenar
         float train(Matrix inputs, vector<int> tags){
 
-
-    
-
-
             vector<int> bad;
             std::unordered_map<int,int> last_classification;
 
 
-            for(int j= 0; j < 100; j++){
+            for(int j= 0; j < 10000; j++){
 
 
                 for(int i= 0; i < inputs.size(); i++ ){

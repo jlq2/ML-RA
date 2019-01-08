@@ -17,12 +17,12 @@ using namespace std;
 #include "./include/TEstado.h"
 #include "./include/dataReader.h"
 
-#define SIDE 1 // 0 izquieda	1 derecha
+#define SIDE 0 // 0 izquieda	1 derecha
 
 
 int main()
 {
-	dataReader data("inputs.csv", "tags.csv", true, SIDE);
+	dataReader data("inputs.csv", "tags.csv", false);
 
 	//dataReader data("Sonar.csv");
 
@@ -30,7 +30,7 @@ int main()
 	cout  << data._Y << endl;
 
 	Perceptron perceptron(data._X);
-	int contador = 10;
+	int contador = 200;
 
 	
 //	cout  <<  data._Y[SIDE] << endl;

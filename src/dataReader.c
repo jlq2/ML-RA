@@ -71,7 +71,7 @@ cout << "FIN" << endl;
 }
 
 
-dataReader::dataReader(string fileX, string fileY, bool equi){
+dataReader::dataReader(string fileX, string fileY, bool equi, int SIDE){
 
     _equi = equi;
 
@@ -162,11 +162,11 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
 
             _Y = vector<vector<int>>( 2 ) ;
         int cantidadSide = 0;
-        for(int i = 0; i<Y_Dirty[IZQ].size(); i++){
-            if(Y_Dirty[IZQ][i] == 1){
+        for(int i = 0; i<Y_Dirty[SIDE].size(); i++){
+            if(Y_Dirty[SIDE][i] == 1){
                 cantidadSide++;
                 _X.push_back( X_Dirty[i] ); 
-                _Y[IZQ].push_back( Y_Dirty[IZQ][i] );
+                _Y[SIDE].push_back( Y_Dirty[SIDE][i] );
 
             }
         }
@@ -176,11 +176,16 @@ dataReader::dataReader(string fileX, string fileY, bool equi){
 
 
         int random;
+        
         //Metemos la misma canditda dde los otros RANDOM
-        for(int i = 0; i < cantidadSide; i++ ){
+        while(cantidadSide){
             random = rand()%X_Dirty.size();
-            _Y[0].push_back(Y_Dirty[0][random]);
-            _X.push_back( X_Dirty[random] ); 
+            if(Y_Dirty[SIDE][random] == 0){
+                cantidadSide--;
+                _X.push_back( X_Dirty[random] ); 
+                _Y[SIDE].push_back( Y_Dirty[SIDE][random] );
+
+            }
         }
 
     }else{
