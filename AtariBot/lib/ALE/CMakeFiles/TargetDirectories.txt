@@ -1,0 +1,14 @@
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/install.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/rebuild_cache.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/edit_cache.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/uninstall.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/list_install_components.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/videoRecordingExample.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/ale-bin.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/sharedLibraryInterfaceWithModesExample.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/ale-lib.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/ale-c-lib.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/install/local.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/sharedLibraryInterfaceExample.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/install/strip.dir
+/home/juan/Escritorio/ML-Atari/lib/ALE/CMakeFiles/fifoInterfaceExample.dir

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/juan/Escritorio/ML-Atari/lib/ALE/doc/examples/fifoInterfaceExample.cpp
+iostream
+-
+string
+-
+cstring
+-
+vector
+-
+cstdio
+-
+cstdlib
+-
+
