@@ -42,7 +42,7 @@ dataReader::dataReader(string dataSet){
 
     int nFeactures = X_Dirty[0].size();
 
-    cout  << "Numero de feactures " << nFeactures << endl;
+    cout  << "\n\n\nNumero de feactures " << nFeactures << endl;
     for(int i = 0; i < X_Dirty.size(); i++){
         _X.push_back(vector<float>() );
         _Y.push_back(vector<int>() );
@@ -59,15 +59,11 @@ dataReader::dataReader(string dataSet){
 
         }
 
-
-        for(int i = 0; i < _Y.size(); i++){
-        cout << _Y[0][i] << endl;
-
-
-        }
+     //   for(int i = 0; i < _Y.size(); i++){
+   //     cout << _Y[0][i] << endl;//}
     }
 
-cout << "FIN" << endl;
+    cout << "*** Terminando de leer el archivo: " << dataSet << endl;
 }
 
 
@@ -110,7 +106,6 @@ dataReader::dataReader(string fileX, string fileY, bool equi, int SIDE){
     }
 
 
-
     std::ifstream yFile;
     yFile.open(fileY.c_str());
 
@@ -146,13 +141,6 @@ dataReader::dataReader(string fileX, string fileY, bool equi, int SIDE){
     }else{
         std::cout << "No encuentra " << fileY << std::endl;
     }
-
-
-
-
-
-
-
 
     if(_equi){
        // srand(time(NULL));

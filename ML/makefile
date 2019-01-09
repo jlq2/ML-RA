@@ -9,8 +9,8 @@ INCLUDEDIR=include
 _OBJ= gfx.o Perceptron.o dataReader.o neuralNetwork.o Math.o
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 
-all:	mainPerceptron.cpp $(OBJ)
-	 $(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) mainPerceptron.cpp $(OBJ) -o main $(LINKER_FLAGS)
+all:	main.cpp $(OBJ)
+	 $(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) main.cpp $(OBJ) -o main $(LINKER_FLAGS)
 $(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
 	 $(CC) $(OPTIONS) $(DEBUG)  -c $(LINKER_FLAGS) -I$(INCLUDEDIR) -o $@ $<
 
