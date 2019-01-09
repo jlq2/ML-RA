@@ -6,7 +6,7 @@ LINKER_FLAGS = -lX11 -lm
 DEBUG= #-D DEBUG
 LIBDIR=src
 INCLUDEDIR=include
-_OBJ= gfx.o Perceptron.o TEntrenar.o TEstado.o dataReader.o neuralNetwork.o Math.o
+_OBJ= gfx.o Perceptron.o dataReader.o neuralNetwork.o Math.o
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 
 all:    main.cpp $(OBJ)
