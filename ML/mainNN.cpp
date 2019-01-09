@@ -13,16 +13,7 @@
 
 #include "../include/neuralNetwork.h"
 
-
 using namespace std;
-
-
-
-
-
-
-
-
 
 int main()
 {
