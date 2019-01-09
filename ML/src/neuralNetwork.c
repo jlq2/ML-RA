@@ -2,24 +2,22 @@
 #include <math.h>       /* tanh, log */
 #include <utility>      // std::pair, std::make_pair
 
-NeuralNetwork::NeuralNetwork(){
-         nodes = 8;
-         m = 4;
+NeuralNetwork::NeuralNetwork(int _nodes, int _batch){
+        nodes = _nodes;
+        m = _batch;
 
          population = 20;
 
-
-
-    cout << "creatin matrix.. " << endl;
+    cout << "Creating NeuralNetwork.. " << endl;
 
          W1 = Math::createRandMatrix(nodes, 2);
          b1 = Math::createMatrix(nodes, m);
-    cout << "seco matrix.. " << endl;
+    //cout << "seco matrix.. " << endl;
 
          W2 = Math::createRandMatrix(1, nodes);
          b2 = Math::createMatrix(1, m);
 
-    cout << "group matrix.. " << endl;
+   // cout << "group matrix.. " << endl;
 
 
         pop_W1 = vector<Matrix>(population); 
@@ -35,7 +33,7 @@ NeuralNetwork::NeuralNetwork(){
             pop_W2[i] = Math::createRandMatrix(1, nodes);
             pop_b2[i] = Math::createRandMatrix(1, m);
         }
-    cout << "end builder.. " << endl;
+    //cout << "end builder.. " << endl;
 
 
 }
@@ -78,9 +76,9 @@ void printM(Matrix &mat){
         }
 }
 
-void NeuralNetwork::train(Matrix inputs, Matrix tags){
-    printM(inputs);
-    printM(tags);
+void NeuralNetwork::train(Matrix inputs, Matrix tags,int it){
+   // printM(inputs);
+   // printM(tags);
 
 
     // la transpuesta de tags? tiene sentido?
@@ -92,7 +90,7 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags){
 
 
   //  cout << "Start.. " << endl;
-    for(int i=0; i<20; i++){
+    for(int i=0; i<it; i++){
         // foward propagation
         // cout << "Foward Propagation" << endl;
 
@@ -132,12 +130,12 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags){
 
 
 
-            if (i % 19 == 0) {
+            /*if (i % 19 == 0) {
                     cout << "==============" << endl;
                     cout << "Predictions = ";
-                    printM(A2);
+                    //printM(A2);
 
-            }
+            }*/
     }
 
 }
@@ -348,10 +346,16 @@ float NeuralNetwork::fitness(Matrix inputs, Matrix tags, int index){
 }
 
 
+float NeuralNetwork::classify(vector<float> m){
+  
+    return predict( vector<vector<float>>({m}));
+}
 
 
 float NeuralNetwork::predict(Matrix mat){
     //cout << "----predict" << endl;
+    //printM(mat);
+
     mat = Math::T(mat);
 
         //cout << "creatin matrix.. " << endl;
@@ -365,7 +369,7 @@ float NeuralNetwork::predict(Matrix mat){
     Matrix A2 =  Math::sigmoid(z2);
 
 
-    printM(A2);
+    //printM(A2);
     return A2[0][0];
 }
 

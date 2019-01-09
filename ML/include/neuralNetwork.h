@@ -16,17 +16,19 @@ using namespace std;
 class NeuralNetwork{
     public:
         NeuralNetwork(unsigned n_layers, unsigned *values);
-        NeuralNetwork();
-        void train(Matrix inputs, Matrix tags);
+        NeuralNetwork(int nodes, int batch);
+        void train(Matrix inputs, Matrix tags, int it);
         void trainGenetic(Matrix inputs, Matrix tags);
 
         float predict(Matrix m);
+        float classify(vector<float> m);
+
         float fitness(Matrix inputs, Matrix tags, int index);
 
-    private:
-        int p_mut = 2;
-        int nodes = 400;
-        int m = 4;
+    public:
+        int p_mut = 0.1;
+        int nodes ;
+        int m ;
 
         Matrix W1;
         Matrix b1;
