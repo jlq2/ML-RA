@@ -37,4 +37,4 @@ perceptron_sonar: p_sonar run
 perceptron_iris: p_iris run
 
 clean:
-	rm -f $(OBJ)	
+	rm -f $(OBJ) 

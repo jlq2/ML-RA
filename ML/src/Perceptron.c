@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////
 template <typename T> 
 ostream& operator<<(ostream& os, const vector<T>& v) 
-{ 
+{
     os << "["; 
     for (int i = 0; i < v.size(); ++i) { 
         os << v[i]; 
@@ -83,6 +83,7 @@ int Perceptron::classify( vector<float> x){
 }
 
 void Perceptron::info(){
+    cout << "Vector de pesos W: ";
     cout << _W << endl;
 }
 
@@ -105,7 +106,7 @@ float Perceptron::train(Matrix inputs, vector<int> tags){
             }
         } 
         
-        cout << "mal clasificados: " << bad.size() << endl;
+        //cout << "mal clasificados: " << bad.size() << endl;
 
         if (bad.size() == 0){
             _bestError = 0;

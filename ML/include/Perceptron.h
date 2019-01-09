@@ -24,7 +24,7 @@ vector<float> operator+=( vector<float>& v1, const vector<float>& v2);
 
 
 // Número de iteraciones a durante el entrenamiento
-static const int CONST_ITERACIONES = 10000;
+static const int CONST_ITERACIONES = 1000;
 
 class point{
 public:

@@ -16,6 +16,12 @@
 using namespace std;
 
 
+////////////////////
+const int NUM_DATOS = 500;
+// Alto y ancho de la ventana gfx
+const int ysize = 400;
+const int xsize = 400;
+
 /////////////////////////////////////////////////////////
 // Recta para generar el DataSet a ambos las de la recta
 /////////////////////////////////////////////////////////
@@ -36,10 +42,6 @@ int solution(int x,vector<float> W){
 int main()
 {
 	srand (time(NULL));
- 
-	// Alto y ancho de la ventana gfx
- 	int ysize = 400;
-	int xsize = 400;
 
 	// Open a new window for drawing.
 	gfx_open(xsize,ysize,"Perceptron");
@@ -49,14 +51,14 @@ int main()
 	// DataSet
 	vector<point> D;
 	// Generar el DataSet
-	cout << "Generando DataSet" << endl;
+	cout << "\n\n**** Generando DataSet *** \n\n" << endl;
 	
 	// Coordenadas del punto
 	int x = 0;
 	int y = 0;
 	// Clasificación
 	int label = 0;
-	for(int i = 0; i < 440; i++){
+	for(int i = 0; i < NUM_DATOS; i++){
 		// calcular X e Y del punto
 		x = rand() % 400 + 1;
   		y  = rand() % 400 + 1;
@@ -100,13 +102,25 @@ int main()
 	int x2 = 400;
 
 	Perceptron test(inputs);
+	
+	std::cout << "==============================" << endl;
+	std::cout << "=  TEST SINTETICO PERCEPTRON =" << endl;
+	std::cout << "==============================" << endl;
+
+	std::cout << "Puntos a clasificar : " << NUM_DATOS << endl;
+	std::cout << "Función Solucion F  : (2*x)-150" << endl;
+	std::cout << "Ancho en pixels 	  :" << xsize << endl;
+	std::cout << "Alto en pixels  	  :" << ysize << "\n\n";
+
+	std::cout << "%% Pulsa una tecla para empezar a entrenar... %%";
+	std::cin.get();
+
 	int contador = 100;
-
 	while(contador--){
-		usleep(300);
+		usleep(600);
 		gfx_clear();
-		test.info();
 
+		cout << "Train ==> 		" << 100 - contador << endl;
 		cout << "Tasa de Error: " <<  test.train(inputs, tags) << endl;
 		gfx_line(x1,solution(x1,test._bestW),x2,solution(x2,test._bestW));
 
@@ -117,13 +131,13 @@ int main()
 			TotalOkey += D[i].check(test.classify(D[i].toVector()));
 		}
 
-		cout << "BIEN CLASIFICADOS: " << TotalOkey <<endl;
-		
+		cout << "BIEN CLASIFICADOS: " << TotalOkey << endl;
+		test.info();
+		std::cout << "\n";
+
 		gfx_color(0,0,250);
 		gfx_line(x1,f(x1),x2,f(x2));
 		gfx_color(0,250,0);
-
-		test.info();
 	}
 
 	char c;
