@@ -14,6 +14,11 @@ all:	main.cpp $(OBJ)
 $(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
 	 $(CC) $(OPTIONS) $(DEBUG)  -c $(LINKER_FLAGS) -I$(INCLUDEDIR) -o $@ $<
 
+p_bot: mainBot.cpp $(OBJ)
+	 $(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) mainBot.cpp $(OBJ) -o main $(LINKER_FLAGS)
+$(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
+	 $(CC) $(OPTIONS) $(DEBUG)  -c $(LINKER_FLAGS) -I$(INCLUDEDIR) -o $@ $<
+
 p_sintetico: mainPerceptron.cpp $(OBJ)
 	 $(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) mainPerceptron.cpp $(OBJ) -o main $(LINKER_FLAGS)
 $(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
@@ -41,6 +46,7 @@ perceptron_sintetico: p_sintetico run
 perceptron_sonar: p_sonar run
 perceptron_iris: p_iris run
 NN: nn_xor run
+bot: p_bot run
 
 clean:
 	rm -f $(OBJ) 

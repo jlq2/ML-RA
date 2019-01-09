@@ -4,6 +4,7 @@
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
+
 //C
 #include <stdio.h>
 #include <unistd.h>
@@ -30,13 +31,21 @@ int main()
 	//cout  << data._X << endl;
 
 	Perceptron perceptron(data._X);
+
+	std::cout << "==============================" << endl;
+	std::cout << "=  TEST PERCEPTRON - sonar.csv=" << endl;
+	std::cout << "==============================" << endl;
+
+	std::cout << "Puntos a clasificar: " << data._X.size() << endl;
+
+	std::cout << "%% Pulsa una tecla para empezar a entrenar... %%";
+	std::cin.get();
+
 	int contador = 20;
-
 	while(contador--){
-		perceptron.info();
-						
+		
 		float tasaError = perceptron.train(data._X, data._Y[SIDE]);
-
+		cout << "Train ==> 	" << 20 - contador << endl;
 		cout << "Tasa de Error: " << tasaError  << endl;
 
 		int TotalOkey = 0;
@@ -47,12 +56,11 @@ int main()
 			}
 		}
 
-		cout << "BIEN CLASIFICADOS: " << TotalOkey <<endl;
+		cout << "BIEN CLASIFICADOS: " << TotalOkey << endl;
 		perceptron.info();
+		std::cout << "\n";
+		
 	}
 	
 	return 0;
 }
-
-
-

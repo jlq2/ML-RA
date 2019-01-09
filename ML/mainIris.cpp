@@ -42,9 +42,6 @@ int main()
 
 	int contador = 20;
 	while(contador--){
-		perceptron.info();
-
-		
 		float tasaError = perceptron.train(data._X, data._Y[SIDE]);
 		cout << "Train ==> 	" << 20 - contador << endl;
 		cout << "Tasa de Error: " << tasaError  << endl;

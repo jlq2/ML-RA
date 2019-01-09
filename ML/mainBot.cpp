@@ -1,3 +1,9 @@
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+// TEST BOT ALE
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+
 
 //C
 #include <stdio.h>
@@ -22,47 +28,35 @@ int main()
 {
 	dataReader data("csv/inputs.csv", "csv/tags.csv", false, SIDE);
 
-	//dataReader data("Sonar.csv");
-
 	Perceptron perceptron(data._X);
 	int contador = 20;
 
-	
-//	cout  <<  data._Y[SIDE] << endl;
+	std::cout << "\n\n";
+	std::cout << "====================================" << endl;
+	std::cout << "=  BOT ALE                         =" << endl;
+	std::cout << "====================================" << endl;
 
-    cout << "--------------------------------------------------------" << endl;
-
-
+	std::cout << "\n%% Pulsa una tecla para empezar a entrenar... %%";
+	std::cin.get();
 
 	while(contador--){
-		perceptron.info();
 						
-		float tasaError = perceptron.train(data._X, data._Y[SIDE])		;
-											// IZQUIERDA
-
+		float tasaError = perceptron.train(data._X, data._Y[SIDE]);
 
 		cout << "Tasa de Error: " << tasaError  << endl;
 		int TotalOkey = 0;
 		for(int i= 0; i < data._X.size(); i++){
-		//	cout << "claisifcando " << endl;
-													// IZQUIERDA
 			if(perceptron.classify( data._X[i]) == data._Y[SIDE][i]){
 				TotalOkey++;
-
 			}
-
-
 		}
-
 
 		cout << "BIEN CLASIFICADOS: " << TotalOkey <<endl;
 
-
 		perceptron.info();
+
+		cout << endl;
 	}
 
 	return 0;
 }
-
-
-
