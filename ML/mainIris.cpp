@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+// TEST PERCEPTRON con los datos Iris.csv
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 
 //C
 #include <stdio.h>
@@ -13,8 +18,6 @@ using namespace std;
 
 #include "include/gfx.h"
 #include "./include/Perceptron.h"
-#include "./include/TEntrenar.h"
-#include "./include/TEstado.h"
 #include "./include/dataReader.h"
 
 #define SIDE 0 // 0 izquieda	1 derecha
@@ -22,50 +25,32 @@ using namespace std;
 
 int main()
 {
-	dataReader data("inputs.csv", "tags.csv", false);
+	dataReader data("./csv/Iris.csv");
 
-	//dataReader data("Sonar.csv");
-
-	cout  << data._X << endl;
-	cout  << data._Y << endl;
+	//cout  << data._X << endl;
 
 	Perceptron perceptron(data._X);
-	int contador = 200;
-
-	
-//	cout  <<  data._Y[SIDE] << endl;
-
-    cout << "--------------------------------------------------------" << endl;
-
-
+	int contador = 20;
 
 	while(contador--){
 		perceptron.info();
 						
-		float tasaError = perceptron.train(data._X, data._Y[SIDE])		;
-											// IZQUIERDA
-
+		float tasaError = perceptron.train(data._X, data._Y[SIDE]);
 
 		cout << "Tasa de Error: " << tasaError  << endl;
+
 		int TotalOkey = 0;
 		for(int i= 0; i < data._X.size(); i++){
 		//	cout << "claisifcando " << endl;
-													// IZQUIERDA
 			if(perceptron.classify( data._X[i]) == data._Y[SIDE][i]){
 				TotalOkey++;
-
 			}
-
-
 		}
 
-
 		cout << "BIEN CLASIFICADOS: " << TotalOkey <<endl;
-
-
 		perceptron.info();
 	}
-
+	
 	return 0;
 }
 
