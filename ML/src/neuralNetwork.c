@@ -21,6 +21,8 @@ NeuralNetwork::NeuralNetwork(int _nodes, int _batch){
 
    // cout << "group matrix.. " << endl;
 
+    pop_W1 = vector<Matrix>(population);
+    pop_b1 = vector<Matrix>(population);
     pop_W2 = vector<Matrix>(population);
     pop_b2 = vector<Matrix>(population);
 

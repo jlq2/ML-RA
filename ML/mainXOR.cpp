@@ -25,6 +25,14 @@ int main()
 	Matrix X { {0,0},{0,1},{1,0},{1,1}};
 	Matrix Y { {0},{1},{1},{0}};
 
+	std::cout << "\n\n";
+	std::cout << "====================================" << endl;
+	std::cout << "=  TEST SINTETICO RED NEURONAL_XOR =" << endl;
+	std::cout << "====================================" << endl;
+
+	std::cout << "\n%% Pulsa una tecla para empezar a entrenar... %%";
+	std::cin.get();
+
     srand (time(0));
 
 	NeuralNetwork nn = NeuralNetwork(16,1);
