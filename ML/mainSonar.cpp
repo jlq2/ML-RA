@@ -13,8 +13,6 @@ using namespace std;
 
 #include "include/gfx.h"
 #include "./include/Perceptron.h"
-#include "./include/TEntrenar.h"
-#include "./include/TEstado.h"
 #include "./include/dataReader.h"
 
 #define SIDE 0 // 0 izquieda	1 derecha
