@@ -4,7 +4,6 @@
 #include <math.h>       /* tanh, log */
 #include <utility>      // std::pair, std::make_pair
 
-<<<<<<< HEAD
 NeuralNetwork::NeuralNetwork(int _nodes, int _batch){
         nodes = _nodes;
         m = _batch;
@@ -21,24 +20,6 @@ NeuralNetwork::NeuralNetwork(int _nodes, int _batch){
          b2 = Math::createMatrix(1, m);
 
    // cout << "group matrix.. " << endl;
-=======
-NeuralNetwork::NeuralNetwork(){
-    nodes = 8;
-    m = 4;
-    population = 20;
-
-    cout << "creatin matrix.. " << endl;
-    W1 = Math::createRandMatrix(nodes, 2);
-    b1 = Math::createMatrix(nodes, m);
-
-    cout << "seco matrix.. " << endl;
-    W2 = Math::createRandMatrix(1, nodes);
-    b2 = Math::createMatrix(1, m);
-
-    cout << "group matrix.. " << endl;
-    pop_W1 = vector<Matrix>(population); 
-    pop_b1 = vector<Matrix>(population);
->>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
 
     pop_W2 = vector<Matrix>(population);
     pop_b2 = vector<Matrix>(population);
@@ -51,16 +32,10 @@ NeuralNetwork::NeuralNetwork(){
         pop_b2[i] = Math::createRandMatrix(1, m);
     }
 
-<<<<<<< HEAD
-            pop_W2[i] = Math::createRandMatrix(1, nodes);
-            pop_b2[i] = Math::createRandMatrix(1, m);
-        }
+
     //cout << "end builder.. " << endl;
 
 
-=======
-    cout << "end builder.. " << endl;
->>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
 }
 
 NeuralNetwork::NeuralNetwork(unsigned layers, unsigned *values) {
@@ -140,7 +115,6 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags,int it){
         W2 = Math::sub(W2, Math::multiply(0.01, dW2));
         b2 = Math::sub(b2, Math::multiply(0.01, db2));
 
-<<<<<<< HEAD
 
 
             /*if (i % 19 == 0) {
@@ -149,13 +123,6 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags,int it){
                     //printM(A2);
 
             }*/
-=======
-        if (i % 19 == 0) {
-                cout << "==============" << endl;
-                cout << "Predictions = ";
-                printM(A2);
-        }
->>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
     }
 }
 

@@ -29,12 +29,18 @@ p_iris: mainIris.cpp $(OBJ)
 $(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
 	 $(CC) $(OPTIONS) $(DEBUG)  -c $(LINKER_FLAGS) -I$(INCLUDEDIR) -o $@ $<
 
+nn_xor: mainXOR.cpp $(OBJ)
+	 $(CC) $(OPTIONS) $(DEBUG) -I$(INCLUDEDIR) mainXOR.cpp $(OBJ) -o main $(LINKER_FLAGS)
+$(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.hpp
+	 $(CC) $(OPTIONS) $(DEBUG)  -c $(LINKER_FLAGS) -I$(INCLUDEDIR) -o $@ $<
+
 run:
 	./main
 
 perceptron_sintetico: p_sintetico run
 perceptron_sonar: p_sonar run
 perceptron_iris: p_iris run
+NN: nn_xor run
 
 clean:
 	rm -f $(OBJ) 
