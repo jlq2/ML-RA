@@ -47,7 +47,7 @@ int main()
 
 
 	gfx_open(xsize,ysize,"Perceptron");
-				gfx_color(0,0,250);
+	gfx_color(0,0,250);
 	// Set the current drawing color to green.
 
 	vector<point> D;

@@ -1,70 +1,82 @@
 
-//C
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
-
-//C++
-#include <vector>
-#include <iostream>
-using namespace std;
 
 
 #include "include/gfx.h"
-#include "./include/Perceptron.h"
-#include "./include/TEntrenar.h"
-#include "./include/TEstado.h"
-#include "./include/dataReader.h"
+#include <vector>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+#include <iostream>
+#include <vector>
 
-#define SIDE 0 // 0 izquieda	1 derecha
+#include "../include/neuralNetwork.h"
+
+
+using namespace std;
+
+
+
+
+
+
+
 
 
 int main()
 {
-	dataReader data("csv/inputs.csv", "csv/tags.csv", false, SIDE);
 
-	//dataReader data("Sonar.csv");
+	uint32_t myFloat[1];
+	myFloat[0] = 1;
 
-	cout  << data._X << endl;
-	cout  << data._Y << endl;
+	uint32_t myFloat2[1];
+	myFloat2[0] = 0xFFFFFF;
 
-	Perceptron perceptron(data._X);
-	int contador = 20;
+	cout << (float)Math::mixBits(myFloat,myFloat2, 16) << endl;
+
+
+	return 0;
+	/////////// XOR  test sintetico
+
+	// Creamos los datos de entrada
+	Matrix X { {0,0},{0,1},{1,0},{1,1}};
+	Matrix Y { {0},{1},{1},{0}};
+
+    srand (time(0));
+	
+
 
 	
-//	cout  <<  data._Y[SIDE] << endl;
+	NeuralNetwork nn = NeuralNetwork();
 
-    cout << "--------------------------------------------------------" << endl;
+	try {
+	int w = 40000;
+	while(w--){
+		cout << "------"<< w << "------" << endl;
+	int rIndex = rand() % X.size();
 
+	Matrix x_rand = Matrix();
+			x_rand.push_back(X[rIndex]);
 
-
-	while(contador--){
-		perceptron.info();
-						
-		float tasaError = perceptron.train(data._X, data._Y[SIDE])		;
-											// IZQUIERDA
-
-
-		cout << "Tasa de Error: " << tasaError  << endl;
-		int TotalOkey = 0;
-		for(int i= 0; i < data._X.size(); i++){
-		//	cout << "claisifcando " << endl;
-													// IZQUIERDA
-			if(perceptron.classify( data._X[i]) == data._Y[SIDE][i]){
-				TotalOkey++;
-
-			}
+	Matrix y_rand = Matrix();
+			y_rand.push_back(Y[rIndex]);
 
 
-		}
+
+		nn.train(x_rand,y_rand);
+	}	
 
 
-		cout << "BIEN CLASIFICADOS: " << TotalOkey <<endl;
-
-
-		perceptron.info();
+	} catch (const std::exception& e) { // reference to the base of a polymorphic object
+		std::cout << e.what(); // information from length_error printed
 	}
+
+	cout << "predict {0,0} -> 0 | " << nn.predict({ {0,0}}) << endl;
+	cout << "predict {0,1} -> 1 | " << nn.predict({ {0,1}}) << endl;
+	cout << "predict {1,0} -> 1 | " << nn.predict({ {1,0}}) << endl;
+	cout << "predict {1,1} -> 0 | " << nn.predict({ {1,1}}) << endl;
+
+
 
 	return 0;
 }

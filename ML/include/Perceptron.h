@@ -23,7 +23,7 @@ ostream& operator<<(ostream& os, const vector<T>& v)
         if (i != v.size() - 1) 
             os << ", "; 
     } 
-    os << "]\n"; 
+    os << "]"; 
     return os; 
 } 
   

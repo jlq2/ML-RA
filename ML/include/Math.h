@@ -3,13 +3,16 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <vector>
-#include <math.h>       /* tanh, log */
-
+#include <math.h>       /* tanh, log, pow*/
+#include <stdexcept>
+#include <string>
+#include <iostream>
 using namespace std;
 
 
 
 typedef vector<vector<float>> Matrix ;
+
 
 class Math{
 
@@ -28,9 +31,15 @@ class Math{
      static Matrix createRandMatrix(int row, int col) {
 
         srand (time(0));
-        rand();
 
-        Matrix a =  Matrix(row, std::vector<float>(col, (rand() % 100) / 100));
+
+        Matrix a =  Matrix(row, std::vector<float>(col ));
+
+        for (int i = 0; i < a.size(); i++) {
+            for (int j = 0; j < a[i].size(); j++) {
+                a[i][j] = float(float(rand() % 100)) / 100;
+            }
+        }
 
         return a;
     }
@@ -66,6 +75,36 @@ class Math{
     }
 
 
+    //Sumar dos matrices
+    static Matrix sub(Matrix a,Matrix b) {
+        int m = a.size();
+        int n = a[0].size();
+        Matrix c = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                c[i][j] = a[i][j] - b[i][j] ;
+            }
+        }
+        return c;
+    }
+
+
+    //Sumar dos matrices
+    static Matrix sub(float a,Matrix b) {
+        int m = b.size();
+        int n = b[0].size();
+        Matrix c = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                c[i][j] = a - b[i][j] ;
+            }
+        }
+        return c;
+    }
+
+
     // dot product // scalar product 
     static Matrix dot(Matrix a, Matrix b) {
         int m1 = a.size();
@@ -73,7 +112,10 @@ class Math{
         int m2 = b.size();
         int n2 = b[0].size();
         if (n1 != m2) {
-            throw "dot error";
+            cout<<  "dot exception: a[0].size(): " <<  n1 <<  " b.size(): " <<  m2 << endl;
+            cout << flush;
+            throw std::invalid_argument(  "dot exception" + n1);
+
         }
         Matrix c = createMatrix(m1,n2); //new double[m1][n2];
         for (int i = 0; i < m1; i++) {
@@ -104,5 +146,78 @@ class Math{
     }
 
 
+    //Divide Matrix
+     static Matrix divide(Matrix x, int a) {
+        int m = x.size();
+        int n = x[0].size();
+        Matrix z = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                z[i][j] = (x[i][j] / a);
+            }
+        }
+        return z;
+    }
+
+
+    static Matrix multiply(Matrix a,Matrix b) {
+        int m = a.size();
+        int n = a[0].size();
+        Matrix c = createMatrix(m,n);
+
+        if (b.size() != m || b[0].size() != n) {
+            throw std::invalid_argument( "multiply" );
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                c[i][j] = a[i][j] * b[i][j] ;
+            }
+        }
+        return c;
+    }
+
+
+
+    static Matrix multiply(float a,Matrix b) {
+        int m = b.size();
+        int n = b[0].size();
+        Matrix c = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                c[i][j] =  b[i][j] * a ;
+            }
+        }
+        return c;
+    }
+
+
+
+
+
+    //power elements of a  Matrix
+     static Matrix power(Matrix x, int a) {
+        int m = x.size();
+        int n = x[0].size();
+        Matrix z = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                z[i][j] = (float) pow(x[i][j] , (float)a);
+            }
+        }
+        return z;
+    }
+
+     static float mixBits(uint32_t n1[], uint32_t n2[], int point);
+
 
 };
+
+
+
+
+
+
+
