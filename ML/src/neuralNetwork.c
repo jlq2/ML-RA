@@ -4,6 +4,24 @@
 #include <math.h>       /* tanh, log */
 #include <utility>      // std::pair, std::make_pair
 
+<<<<<<< HEAD
+NeuralNetwork::NeuralNetwork(int _nodes, int _batch){
+        nodes = _nodes;
+        m = _batch;
+
+         population = 20;
+
+    cout << "Creating NeuralNetwork.. " << endl;
+
+         W1 = Math::createRandMatrix(nodes, 2);
+         b1 = Math::createMatrix(nodes, m);
+    //cout << "seco matrix.. " << endl;
+
+         W2 = Math::createRandMatrix(1, nodes);
+         b2 = Math::createMatrix(1, m);
+
+   // cout << "group matrix.. " << endl;
+=======
 NeuralNetwork::NeuralNetwork(){
     nodes = 8;
     m = 4;
@@ -20,6 +38,7 @@ NeuralNetwork::NeuralNetwork(){
     cout << "group matrix.. " << endl;
     pop_W1 = vector<Matrix>(population); 
     pop_b1 = vector<Matrix>(population);
+>>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
 
     pop_W2 = vector<Matrix>(population);
     pop_b2 = vector<Matrix>(population);
@@ -32,7 +51,16 @@ NeuralNetwork::NeuralNetwork(){
         pop_b2[i] = Math::createRandMatrix(1, m);
     }
 
+<<<<<<< HEAD
+            pop_W2[i] = Math::createRandMatrix(1, nodes);
+            pop_b2[i] = Math::createRandMatrix(1, m);
+        }
+    //cout << "end builder.. " << endl;
+
+
+=======
     cout << "end builder.. " << endl;
+>>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
 }
 
 NeuralNetwork::NeuralNetwork(unsigned layers, unsigned *values) {
@@ -63,17 +91,20 @@ void printM(Matrix &mat){
         }
 }
 
-void NeuralNetwork::train(Matrix inputs, Matrix tags){
-    printM(inputs);
-    printM(tags);
+void NeuralNetwork::train(Matrix inputs, Matrix tags,int it){
+   // printM(inputs);
+   // printM(tags);
 
     // la transpuesta de tags? tiene sentido?
     inputs = Math::T(inputs);
     tags = Math::T(tags);
     //cout << "creatin matrix.. " << endl;
 
-    //  cout << "Start.. " << endl;
-    for(int i=0; i<20; i++){
+
+
+
+  //  cout << "Start.. " << endl;
+    for(int i=0; i<it; i++){
         // foward propagation
         // cout << "Foward Propagation" << endl;
 
@@ -109,11 +140,22 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags){
         W2 = Math::sub(W2, Math::multiply(0.01, dW2));
         b2 = Math::sub(b2, Math::multiply(0.01, db2));
 
+<<<<<<< HEAD
+
+
+            /*if (i % 19 == 0) {
+                    cout << "==============" << endl;
+                    cout << "Predictions = ";
+                    //printM(A2);
+
+            }*/
+=======
         if (i % 19 == 0) {
                 cout << "==============" << endl;
                 cout << "Predictions = ";
                 printM(A2);
         }
+>>>>>>> 0e4a6b0b871cee7b78bcc095dc70bd34d0fb6702
     }
 }
 
@@ -319,8 +361,17 @@ float NeuralNetwork::fitness(Matrix inputs, Matrix tags, int index){
     return cost;
 }
 
+
+float NeuralNetwork::classify(vector<float> m){
+  
+    return predict( vector<vector<float>>({m}));
+}
+
+
 float NeuralNetwork::predict(Matrix mat){
     //cout << "----predict" << endl;
+    //printM(mat);
+
     mat = Math::T(mat);
 
         //cout << "creatin matrix.. " << endl;
@@ -334,7 +385,7 @@ float NeuralNetwork::predict(Matrix mat){
     Matrix A2 =  Math::sigmoid(z2);
 
 
-    printM(A2);
+    //printM(A2);
     return A2[0][0];
 }
 
