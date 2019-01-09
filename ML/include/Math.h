@@ -144,6 +144,18 @@ class Math{
         return z;
     }
 
+     static Matrix tanhM(Matrix a) {
+        int m = a.size();
+        int n = a[0].size();
+        Matrix z = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                z[i][j] = tanh(a[i][j]);
+            }
+        }
+        return z;
+    }
 
     //Divide Matrix
      static Matrix divide(Matrix x, int a) {

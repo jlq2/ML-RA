@@ -12,6 +12,8 @@
         "*.tcc": "c",
         "list": "c",
         "unordered_map": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "cmath": "cpp",
+        "neuralnetwork.h": "c"
     }
 }
