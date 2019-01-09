@@ -4,6 +4,14 @@
         "vector": "cpp",
         "iosfwd": "cpp",
         "iostream": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "ostream": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "*.tcc": "c",
+        "list": "c",
+        "unordered_map": "c",
+        "system_error": "c"
     }
 }

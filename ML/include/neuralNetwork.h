@@ -21,10 +21,10 @@ class NeuralNetwork{
         void trainGenetic(Matrix inputs, Matrix tags);
 
         float predict(Matrix m);
-        float fitness(Matrix mat);
+        float fitness(Matrix inputs, Matrix tags, int index);
 
     private:
-
+        int p_mut = 2;
         int nodes = 400;
         int m = 4;
 

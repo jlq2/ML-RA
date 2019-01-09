@@ -30,8 +30,7 @@ class Math{
     //Get random Matrix
      static Matrix createRandMatrix(int row, int col) {
 
-        srand (time(0));
-
+        //srand (time(0));
 
         Matrix a =  Matrix(row, std::vector<float>(col ));
 
@@ -211,6 +210,28 @@ class Math{
     }
 
      static float mixBits(uint32_t n1[], uint32_t n2[], int point);
+
+
+     static float cross_entropy(int batch_size, Matrix Y, Matrix A) {
+        int m = A.size();
+        int n = A[0].size();
+        Matrix z = createMatrix(m,n);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                z[i][j] = (Y[i][j] * log(A[i][j])) + ((1 - Y[i][j]) * log(1 - A[i][j]));
+            }
+        }
+
+        float sum = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                sum += z[i][j];
+            }
+        }
+        return -sum / batch_size;
+    }
+
 
 
 };

@@ -25,26 +25,26 @@
         for(int i= 0; i < point; i++){
             if(TestBit(n1, i ) ){
                 SetBit(myFloat, i );
-                cout << "1";
+               // cout << "1";
             }else{
                 ClearBit(myFloat, i );
-                cout << "0" ;
+              //  cout << "0" ;
             }
         }
-    cout << endl;
+  //  cout << endl;
 
         for(int i= point ; i < 32; i++){
             if(TestBit(n2, i ) ){
                 SetBit(myFloat, i );
-                                cout << "1";
+               //                 cout << "1";
 
             }else{
                 ClearBit(myFloat, i );
-                                cout << "0" ;
+                 //               cout << "0" ;
 
             }
         }
-            cout << endl;
+       //     cout << endl;
 
 
         return myFloat[0];

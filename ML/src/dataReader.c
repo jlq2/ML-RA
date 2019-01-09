@@ -155,7 +155,7 @@ dataReader::dataReader(string fileX, string fileY, bool equi, int SIDE){
 
 
     if(_equi){
-        srand(time(NULL));
+       // srand(time(NULL));
 
         // cantida de datos, izq 
         int IZQ = 0;

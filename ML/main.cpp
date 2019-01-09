@@ -25,6 +25,7 @@ using namespace std;
 
 int main()
 {
+	srand(time(0));
 
 	uint32_t myFloat[1];
 	myFloat[0] = 1;
@@ -34,12 +35,20 @@ int main()
 
 	cout << (float)Math::mixBits(myFloat,myFloat2, 16) << endl;
 
+	NeuralNetwork nn = NeuralNetwork();
+
+	Matrix X { {0,0},{0,1},{1,0},{1,1}};
+	Matrix Y { {0},{1},{1},{0}};
+
+	for(int i=0; i<2; i++){
+		nn.trainGenetic(X,Y);
+	}
 
 	return 0;
 	/////////// XOR  test sintetico
 
 	// Creamos los datos de entrada
-	Matrix X { {0,0},{0,1},{1,0},{1,1}};
+	/*Matrix X { {0,0},{0,1},{1,0},{1,1}};
 	Matrix Y { {0},{1},{1},{0}};
 
     srand (time(0));
@@ -47,7 +56,7 @@ int main()
 
 
 	
-	NeuralNetwork nn = NeuralNetwork();
+	NeuralNetwrk nn = NeuralNetwork();*/
 
 	try {
 	int w = 40000;

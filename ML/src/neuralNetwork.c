@@ -1,5 +1,6 @@
 #include "../include/neuralNetwork.h"
 #include <math.h>       /* tanh, log */
+#include <utility>      // std::pair, std::make_pair
 
 NeuralNetwork::NeuralNetwork(){
          nodes = 8;
@@ -18,19 +19,23 @@ NeuralNetwork::NeuralNetwork(){
          W2 = Math::createRandMatrix(1, nodes);
          b2 = Math::createMatrix(1, m);
 
-        vector<Matrix> pop_W1(population); 
-        vector<Matrix> pop_b1(population);
+    cout << "group matrix.. " << endl;
 
-        vector<Matrix> pop_W2(population); 
-        vector<Matrix> pop_b2(population);
+
+        pop_W1 = vector<Matrix>(population); 
+        pop_b1 = vector<Matrix>(population);
+
+        pop_W2 = vector<Matrix>(population);
+        pop_b2 = vector<Matrix>(population);
 
         for(int i= 0; i<population ; i++){
             pop_W1[i] = Math::createRandMatrix(nodes, 2);
-            pop_b1[i] = Math::createMatrix(nodes, m);
+            pop_b1[i] = Math::createRandMatrix(nodes, m);
 
             pop_W2[i] = Math::createRandMatrix(1, nodes);
-            pop_b2[i] = Math::createMatrix(1, m);
+            pop_b2[i] = Math::createRandMatrix(1, m);
         }
+    cout << "end builder.. " << endl;
 
 
 }
@@ -91,11 +96,11 @@ void NeuralNetwork::train(Matrix inputs, Matrix tags){
         // foward propagation
         // cout << "Foward Propagation" << endl;
 
-        //    cout << "   Layer 1" << endl;
+        //cout << "   Layer 1" << endl;
         Matrix z1 = Math::add( Math::dot(W1, inputs),b1);
         Matrix A1 =  Math::sigmoid(z1);
 
-     //   cout << "   Layer 2" << endl;
+        //cout << "   Layer 2" << endl;
         Matrix z2 =  Math::add( Math::dot(W2, A1),b2);
         Matrix A2 =  Math::sigmoid(z2);
 
@@ -142,7 +147,104 @@ void NeuralNetwork::trainGenetic(Matrix inputs, Matrix tags){
 
     //Algoritmo genetico
 
-    
+    vector<float> fitnesGroup(population);
+
+    for(int i = 0; i < population; i++){
+        fitnesGroup[i] = fitness(inputs, tags, i);
+        cout << "----" << i << " " << fitnesGroup[i] << endl;
+    }
+
+    cout << "fitness end" << endl;
+
+  std::pair <int,double> bestFit(0,99);                   
+  std::pair <int,double> sbestFit(0,99);                   
+
+    for(int i = 0; i < population; i++){
+
+        if( fitnesGroup[i]  < sbestFit.second ){
+            if(fitnesGroup[i] < bestFit.second){
+                //el primero al segundo y actualizamos primero
+                sbestFit =bestFit;
+                bestFit =   std::pair <int,double>(i,fitnesGroup[i] );
+            }else{
+                 sbestFit =   std::pair <int,double>(i,fitnesGroup[i] );
+        
+            }
+
+        }
+
+    }
+
+    cout << bestFit.first << " " <<  bestFit.second <<  endl;
+    cout << sbestFit.first << " " <<  sbestFit.second << endl;
+
+    cout << pop_W1[bestFit.first][0][0] << endl;
+
+
+
+    vector<Matrix> parent  = {pop_W1[bestFit.first],pop_b1[bestFit.first],pop_W2[bestFit.first], pop_b2[bestFit.first] };
+    vector<Matrix> parent2 = {pop_W1[sbestFit.first],pop_b1[sbestFit.first],pop_W2[sbestFit.first], pop_b2[sbestFit.first] };
+
+pop_W1.clear();
+pop_b1.clear();
+
+pop_W2.clear();
+pop_b2.clear();
+
+    cout << "crossover" << endl;
+    //crossover
+        // Population veces para generar una poblacion nueva
+        for(int i = 0; i < population; i++){
+
+            vector<Matrix> child;
+            //4 veces, w1 b1 ,w2 b2
+            for(int j = 0; j < parent.size(); j++){
+
+                Matrix mat(parent[j].size());
+                //ancho y alto
+                for(int x = 0; x < parent[j].size(); x++){
+                    for(int y = 0; y < parent[j][x].size(); y++){
+
+                        float nW ; 
+
+                        float myFloat[1];
+                        myFloat[0] = parent[j][x][y];
+                        
+                        float myFloat2[1];
+                        myFloat2[0] = parent2[j][x][y];
+
+                        // nW = Math::mixBits((uint32_t*)myFloat2, (uint32_t*)myFloat, rand() % 31 );
+
+                        nW = (myFloat[0] + myFloat2[0]) + (rand() % 100) /100 ;
+
+                        if(2 >= rand()%100){
+                           //   nW = rand()%1000 - 500;
+
+                        }
+                        mat[x].push_back(nW);
+
+                    }
+                }
+                
+                
+                //cout << "mat1 " << parent[j].size() << "x" << parent[j][0].size() << endl;
+                //cout << "mat2 " << mat.size() << "x" << mat[0].size() << endl;;
+                child.push_back(mat);
+               // cout << "mat3 " << child[child.size() - 1].size() << "x" << child[child.size() - 1][0].size() << endl;;
+
+            }
+
+
+            pop_W1.push_back( child[0]); 
+            pop_b1.push_back( child[1]); 
+            pop_W2.push_back( child[2]); 
+            pop_b2.push_back( child[3]); 
+
+           // cout << "mat " <<     pop_W1[i].size() << "x" <<     pop_W1[i][0].size() << endl << endl;;
+
+
+        }
+
 
     //Create population
     //Loop
@@ -223,23 +325,26 @@ void NeuralNetwork::trainGenetic(Matrix inputs, Matrix tags){
 
 
 
-float NeuralNetwork::fitness(Matrix mat){
-    //cout << "----predict" << endl;
-    mat = Math::T(mat);
+float NeuralNetwork::fitness(Matrix inputs, Matrix tags, int index){
+  // cout << "----predict" << endl;
+    inputs = Math::T(inputs);
+    tags = Math::T(tags);
+   // cout << "creatin matrix.. " << endl;
 
-        //cout << "creatin matrix.. " << endl;
-
-    //  cout << "   Layer 1" << endl;
-    Matrix z1 = Math::add( Math::dot(W1, mat),b1);
+//cout << "sizeFitnes" << index << ": "  << pop_b1[index].size() << endl;
+  //    cout << "   Layer 1" << endl;
+    Matrix z1 = Math::add( Math::dot(pop_W1[index], inputs),pop_b1[index]);
     Matrix A1 =  Math::sigmoid(z1);
 
-    //  cout << "   Layer 2" << endl;
-    Matrix z2 =  Math::add( Math::dot(W2, A1),b2);
+   //  cout << "   Layer 2" << endl;
+    Matrix z2 =  Math::add( Math::dot(pop_W2[index], A1),pop_b2[index]);
     Matrix A2 =  Math::sigmoid(z2);
 
+      //  cout << "A2 " << A2[0][0] << endl;
 
-    printM(A2);
-    return A2[0][0];
+    float cost = Math::cross_entropy(m, tags, A2);
+
+    return cost;
 }
 
 
@@ -263,3 +368,5 @@ float NeuralNetwork::predict(Matrix mat){
     printM(A2);
     return A2[0][0];
 }
+
+
